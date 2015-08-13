@@ -1,7 +1,6 @@
 name:                human-readable-duration
 version:             0.1.0.0
 synopsis:            Provide duration helper
-description:         Please see README.md
 homepage:            http://github.com/yogsototh/human-readable-duration#readme
 license:             BSD3
 license-file:        LICENSE
@@ -11,6 +10,18 @@ category:            Time
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
+description:
+    This is a minimal Haskell library to display duration.
+    .
+    > let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
+    > humanReadableDuration duration
+    > -- will return: "2 years 33 days 2 min 3s 32ms"
+    > getYears duration
+    > -- will return 2
+    > getDays duration
+    > -- will return 730
+    > getMs duration
+    > -- will return 730
 
 library
   hs-source-dirs:      src

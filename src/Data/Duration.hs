@@ -1,6 +1,7 @@
 module Data.Duration
     ( humanReadableDuration
     -- durations
+    , ms
     , oneSecond
     , minute
     , hour
@@ -17,12 +18,13 @@ module Data.Duration
 
 
 -- | `humanReadableDuration` take some time in micro-seconds and render a human readable duration.
--- Typically:
--- humanReadableDuration (10^6 * 60) --> 1 min
--- This isn't made to be fast. It uses String.
+--
+--    > let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
+--    > humanReadableDuration duration
+--    > -- will return: "2 years 33 days 2 min 3s 32ms"
 humanReadableDuration :: Int -> String
 humanReadableDuration n
-  | n < oneSecond = let ms = getMs      n in if ms > 0 then show ms ++ "ms" else ""
+  | n < oneSecond = let mi = getMs      n in if mi > 0 then show mi ++ "ms" else ""
   | n < minute = let s  = getSeconds n in if s  > 0 then show s  ++ "s " ++ humanReadableDuration (n `rem` oneSecond) else ""
   | n < hour   = let m  = getMinutes n in if m  > 0 then show m  ++ " min " ++ humanReadableDuration (n `rem` minute) else ""
   | n < day    = let h  = getHours   n in if h  > 0 then show h  ++ " hours " ++ humanReadableDuration (n `rem` hour) else ""
@@ -32,9 +34,14 @@ humanReadableDuration n
 --------------------------------------------------------------------------------
 -- Durations
 --------------------------------------------------------------------------------
+
+-- | number of micro seconds in one millisecond
+ms :: Int
+ms = 1000
+
 -- | number of micro seconds in one second
 oneSecond :: Int
-oneSecond = 10^(6 :: Integer)
+oneSecond = 1000 * ms
 
 -- | number of micro seconds in one minute
 minute :: Int
@@ -57,15 +64,15 @@ year = 365 * day
 --------------------------------------------------------------------------------
 -- | number of milli seconds given a duration in micro seconds
 getMs :: Int -> Int
-getMs n = (n `rem` oneSecond) `div` 1000
+getMs n = n `div` ms
 
 -- | number of seconds given a duration in micro seconds
 getSeconds :: Int -> Int
-getSeconds n = (n `rem` minute) `div` oneSecond
+getSeconds n = n `div` oneSecond
 
 -- | number of minutes given a duration in micro seconds
 getMinutes :: Int -> Int
-getMinutes n = (n `rem` hour) `div` minute
+getMinutes n = n `div` minute
 
 -- | number of hours given a duration in micro seconds
 getHours :: Int -> Int
