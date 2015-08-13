@@ -1,0 +1,9 @@
+.cabal-sandbox
+cabal.sandbox.config
+dist
+*.log
+*.swp
+*~
+.ghci
+.stack-work
+container/.DS_Store
