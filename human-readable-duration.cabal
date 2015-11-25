@@ -15,13 +15,13 @@ description:
     .
     > let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
     > humanReadableDuration duration
-    > -- will return: "2 years 33 days 2 min 3s 32ms"
+    > -- will return: "2 years 33 days 2 min 3s 2ms"
     > getYears duration
     > -- will return 2
     > getDays duration
-    > -- will return 730
+    > -- will return 763
     > getMs duration
-    > -- will return 730
+    > -- will return 65923323002
 
 library
   hs-source-dirs:      src
