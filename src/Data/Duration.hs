@@ -1,7 +1,6 @@
 module Data.Duration
     ( humanReadableDuration
-    , humanReadableDiffTime
-    , humanReadableNominalDiffTime
+    , humanReadableDuration'
     -- durations
     , ms
     , oneSecond
@@ -18,7 +17,6 @@ module Data.Duration
     , getYears
     ) where
 
-import Data.Time.Clock (DiffTime, NominalDiffTime)
 import Data.Fixed (Fixed(..), Micro, div', mod')
 
 -- | `humanReadableDuration` take some time in micro-second precision and render a human readable duration.
@@ -35,16 +33,10 @@ humanReadableDuration n
   | n < year   = let d  = getDays    n in if d  > 0 then show d  ++ " days " ++ humanReadableDuration (n `mod'` day) else ""
   | otherwise  = let y  = getYears   n in if y  > 0 then show y  ++ " years " ++ humanReadableDuration (n `mod'` year) else ""
 
--- | Give a human readable output of a `DiffTime` from the time library.
-humanReadableDiffTime :: DiffTime -> String
-humanReadableDiffTime = humanReadableDuration
-                      . realToFrac
-
--- | Give a human readable output of a `NominalDiffTime` from the time library.
-humanReadableNominalDiffTime :: NominalDiffTime -> String
-humanReadableNominalDiffTime = humanReadableDuration
-                             . realToFrac
-
+-- | Wrapper around any `Real` input, which works for `DiffTime` and
+-- `NominalDiffTime` from the time library, or a `Double` of seconds.
+humanReadableDuration' :: Real a => a -> String
+humanReadableDuration' = humanReadableDuration . realToFrac
 
 --------------------------------------------------------------------------------
 -- Durations
