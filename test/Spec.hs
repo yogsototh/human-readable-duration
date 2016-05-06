@@ -1,2 +1,6 @@
+module Main where
+
+import Test.DocTest
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = doctest ["src/Data/Duration.hs"]

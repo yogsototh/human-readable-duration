@@ -19,11 +19,14 @@ module Data.Duration
 
 import Data.Fixed (Fixed(..), Micro, div', mod')
 
--- | `humanReadableDuration` take some time in micro-second precision and render a human readable duration.
---
---    > let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
---    > humanReadableDuration duration
---    > -- will return: "2 years 33 days 2 min 3s 32ms"
+{- | `humanReadableDuration` take some time in micro-second precision and render a human readable duration.
+
+>>> let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
+>>> print duration
+65923323.002000
+>>> print (humanReadableDuration duration)
+"2 years 33 days 2 min 3s 2ms"
+-}
 humanReadableDuration :: Micro -> String
 humanReadableDuration n
   | n < oneSecond = let mi = getMs      n in if mi > 0 then show mi ++ "ms" else ""
@@ -70,10 +73,20 @@ year = 365 * day
 -- Retrieve some durations
 --------------------------------------------------------------------------------
 -- | number of milli seconds given a duration in micro seconds
+--
+-- >>> getMs 1
+-- 1000
+-- >>> getMs 1.618033
+-- 1618
 getMs :: Micro -> Integer
 getMs n = n `div'` ms
 
 -- | number of seconds given a duration in micro seconds
+--
+-- >>> getSeconds 1
+-- 1
+-- >>> getSeconds 1.618033
+-- 1
 getSeconds :: Micro -> Integer
 getSeconds n = n `div'` oneSecond
 
@@ -86,9 +99,19 @@ getHours :: Micro -> Integer
 getHours n = n `div'` hour
 
 -- | number of days given a duration in micro seconds
+--
+-- >>> getDays (10 * day)
+-- 10
+-- >>> getDays (240 * hour)
+-- 10
 getDays :: Micro -> Integer
 getDays n = n `div'` day
 
 -- | number of years given a duration in micro seconds
+--
+-- >>> getYears (720 * day)
+-- 1
+-- >>> getYears (740 * day)
+-- 2
 getYears :: Micro -> Integer
 getYears n = n `div'` year
