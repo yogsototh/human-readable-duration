@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/yogsototh/human-readable-duration.svg?branch=master)](https://travis-ci.org/yogsototh/human-readable-duration)
+
 # Human Readable Duration
 
 This is a minimal Haskell library to display duration.
