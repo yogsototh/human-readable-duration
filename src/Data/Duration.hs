@@ -1,3 +1,18 @@
+ {-| This is a minimal Haskell library to display duration.
+
+  @
+  > let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
+  > humanReadableDuration duration
+  "2 years 33 days 2 min 3s 2ms"
+  > getYears duration
+  2
+  > getDays duration
+  763
+  > getMs duration
+  65923323002
+  @
+
+-}
 module Data.Duration
     ( humanReadableDuration
     , humanReadableDuration'
@@ -22,9 +37,9 @@ import Data.Fixed (Fixed(..), Micro, div', mod')
 {- | `humanReadableDuration` take some time in micro-second precision and render a human readable duration.
 
 >>> let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
->>> print duration
+>>> duration
 65923323.002000
->>> print (humanReadableDuration duration)
+>>> humanReadableDuration duration
 "2 years 33 days 2 min 3s 2ms"
 -}
 humanReadableDuration :: Micro -> String
@@ -38,6 +53,10 @@ humanReadableDuration n
 
 -- | Wrapper around any `Real` input, which works for `DiffTime` and
 -- `NominalDiffTime` from the time library, or a `Double` of seconds.
+--
+-- >>> import Data.Time.Clock
+-- >>> humanReadableDuration' (secondsToDiffTime 10)
+-- "10s "
 humanReadableDuration' :: Real a => a -> String
 humanReadableDuration' = humanReadableDuration . realToFrac
 
@@ -45,27 +64,55 @@ humanReadableDuration' = humanReadableDuration . realToFrac
 -- Durations
 --------------------------------------------------------------------------------
 
--- | number of micro seconds in one millisecond
+-- | one millisecond (@0.001@)
+--
+-- >>> ms
+-- 0.001000
+-- >>> 1000 * ms
+-- 1.000000
 ms :: Micro
 ms = MkFixed 1000
 
--- | number of micro seconds in one second
+-- | one second (@1@)
+--
+-- >>> oneSecond / ms
+-- 1000.000000
+-- >>> oneSecond
+-- 1.000000
 oneSecond :: Micro
 oneSecond = 1000 * ms
 
--- | number of micro seconds in one minute
+-- | number of seconds in one minute
+--
+-- >>> minute / oneSecond
+-- 60.000000
+-- >>> minute / ms
+-- 60000.000000
 minute :: Micro
 minute = 60 * oneSecond
 
--- | number of micro seconds in one hour
+-- | number of seconds in one hour
+--
+-- >>> hour / minute
+-- 60.000000
+-- >>> hour / oneSecond
+-- 3600.000000
 hour :: Micro
 hour = 60 * minute
 
--- | number of micro seconds in one day
+-- | number of seconds in one day
+--
+-- >>> day / hour
+-- 24.000000
+-- >>> day / oneSecond
+-- 86400.000000
 day :: Micro
 day = 24 * hour
 
--- | number of micro seconds in one year
+-- | number of seconds in one year
+--
+-- >>> year / day
+-- 365.000000
 year :: Micro
 year = 365 * day
 
@@ -91,10 +138,22 @@ getSeconds :: Micro -> Integer
 getSeconds n = n `div'` oneSecond
 
 -- | number of minutes given a duration in micro seconds
+--
+-- >>> getMinutes 60
+-- 1
+-- >>> getMinutes 59
+-- 0
 getMinutes :: Micro -> Integer
 getMinutes n = n `div'` minute
 
 -- | number of hours given a duration in micro seconds
+--
+-- >>> getHours 3600
+-- 1
+-- >>> getHours (60 * minute)
+-- 1
+-- >>> getHours (2 * day)
+-- 48
 getHours :: Micro -> Integer
 getHours n = n `div'` hour
 

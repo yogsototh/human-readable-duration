@@ -37,6 +37,7 @@ test-suite human-readable-duration-test
   build-depends:       base >= 4.7 && < 5
                      , human-readable-duration
                      , doctest >= 0.9.12
+                     , time >= 1.5.0.0
   ghc-options:         -O2 -Wall
   default-language:    Haskell2010
 
