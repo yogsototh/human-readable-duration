@@ -26,6 +26,7 @@ description:
 library
   hs-source-dirs:      src
   exposed-modules:     Data.Duration
+                       Data.Duration.Tutorial
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
 
