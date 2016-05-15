@@ -6,4 +6,5 @@ import Data.Duration
 main :: IO ()
 main = defaultMain
   [ bgroup "to human"
-    [ bench "Basic" $ nf humanReadableDuration 120200303 ]]
+    [ bench "small" $ nf humanReadableDuration 0.123456
+    , bench "Basic" $ nf humanReadableDuration 987654321.123456 ]]
