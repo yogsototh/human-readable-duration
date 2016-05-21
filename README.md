@@ -5,6 +5,7 @@
 
 [![Issue Count](https://codeclimate.com/github/yogsototh/human-readable-duration/badges/issue_count.svg)](https://codeclimate.com/github/yogsototh/human-readable-duration)
 
+[![Hackage](https://img.shields.io/hackage/v/human-readable-duration.svg?maxAge=2592000)](https://hackage.haskell.org/package/human-readable-duration)
 
 # Human Readable Duration
 
