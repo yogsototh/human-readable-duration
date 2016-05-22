@@ -1,11 +1,12 @@
 [![Build Status](https://travis-ci.org/yogsototh/human-readable-duration.svg?branch=master)](https://travis-ci.org/yogsototh/human-readable-duration)
 
+
+[![Hackage](https://img.shields.io/hackage/v/human-readable-duration.svg?maxAge=2592000)](https://hackage.haskell.org/package/human-readable-duration)
 [![human-readable-duration](http://stackage.org/package/human-readable-duration/badge/lts)](http://stackage.org/lts-2/package/human-readable-duration)
 [![human-readable-duration](http://stackage.org/package/human-readable-duration/badge/nightly)](http://stackage.org/lts-2/package/human-readable-duration)
 
 [![Issue Count](https://codeclimate.com/github/yogsototh/human-readable-duration/badges/issue_count.svg)](https://codeclimate.com/github/yogsototh/human-readable-duration)
 
-[![Hackage](https://img.shields.io/hackage/v/human-readable-duration.svg?maxAge=2592000)](https://hackage.haskell.org/package/human-readable-duration)
 
 # Human Readable Duration
 

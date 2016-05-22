@@ -15,6 +15,11 @@ before_install:
 - mkdir -p ~/.local/bin
 - export PATH=$HOME/.local/bin:$PATH
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+- stack setup --resolver=lts-5.15
 
 script:
-  - stack setup && stack --no-terminal --skip-ghc-check test
+  - stack test :human-readable-duration-test --no-terminal --skip-ghc-check --coverage
+
+after_script:
+ - travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.2.0/shc-linux-x64-$GHCVER.tar.bz2 | tar -xj
+ - ./shc human-readable-duration human-readable-duration-test
