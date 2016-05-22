@@ -18,8 +18,8 @@ before_install:
 - stack setup --resolver=lts-5.15
 
 script:
-  - stack test :human-readable-duration-test --no-terminal --skip-ghc-check --coverage
+  - stack test :doctest --no-terminal --coverage --ghc-options '-fforce-recomp'
 
 after_script:
  - travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.2.0/shc-linux-x64-$GHCVER.tar.bz2 | tar -xj
- - ./shc human-readable-duration human-readable-duration-test
+ - ./shc human-readable-duration doctest
