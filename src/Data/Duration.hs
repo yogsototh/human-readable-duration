@@ -16,6 +16,7 @@
 module Data.Duration
     ( humanReadableDuration
     , humanReadableDuration'
+    , Seconds
     -- durations
     , ms
     , oneSecond
@@ -34,6 +35,8 @@ module Data.Duration
 
 import Data.Fixed (Fixed(..), Micro, div', mod')
 
+type Seconds = Micro
+
 {- | `humanReadableDuration` take some time in micro-second precision and render a human readable duration.
 
 >>> let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
@@ -42,7 +45,7 @@ import Data.Fixed (Fixed(..), Micro, div', mod')
 >>> humanReadableDuration duration
 "2 years 33 days 2 min 3s 2ms"
 -}
-humanReadableDuration :: Micro -> String
+humanReadableDuration :: Seconds -> String
 humanReadableDuration n
   | n < oneSecond = let mi = getMs      n in if mi > 0 then show mi ++ "ms" else ""
   | n < minute = let s  = getSeconds n in if s  > 0 then show s  ++ "s " ++ humanReadableDuration (n `mod'` oneSecond) else ""
@@ -70,7 +73,7 @@ humanReadableDuration' = humanReadableDuration . realToFrac
 -- 0.001000
 -- >>> 1000 * ms
 -- 1.000000
-ms :: Micro
+ms :: Seconds
 ms = MkFixed 1000
 
 -- | one second (@1@)
@@ -79,7 +82,7 @@ ms = MkFixed 1000
 -- 1000.000000
 -- >>> oneSecond
 -- 1.000000
-oneSecond :: Micro
+oneSecond :: Seconds
 oneSecond = 1000 * ms
 
 -- | number of seconds in one minute
@@ -88,7 +91,7 @@ oneSecond = 1000 * ms
 -- 60.000000
 -- >>> minute / ms
 -- 60000.000000
-minute :: Micro
+minute :: Seconds
 minute = 60 * oneSecond
 
 -- | number of seconds in one hour
@@ -97,7 +100,7 @@ minute = 60 * oneSecond
 -- 60.000000
 -- >>> hour / oneSecond
 -- 3600.000000
-hour :: Micro
+hour :: Seconds
 hour = 60 * minute
 
 -- | number of seconds in one day
@@ -106,14 +109,14 @@ hour = 60 * minute
 -- 24.000000
 -- >>> day / oneSecond
 -- 86400.000000
-day :: Micro
+day :: Seconds
 day = 24 * hour
 
 -- | number of seconds in one year
 --
 -- >>> year / day
 -- 365.000000
-year :: Micro
+year :: Seconds
 year = 365 * day
 
 --------------------------------------------------------------------------------
@@ -125,7 +128,7 @@ year = 365 * day
 -- 1000
 -- >>> getMs 1.618033
 -- 1618
-getMs :: Micro -> Integer
+getMs :: Seconds -> Integer
 getMs n = n `div'` ms
 
 -- | number of seconds given a duration in micro seconds
@@ -134,7 +137,7 @@ getMs n = n `div'` ms
 -- 1
 -- >>> getSeconds 1.618033
 -- 1
-getSeconds :: Micro -> Integer
+getSeconds :: Seconds -> Integer
 getSeconds n = n `div'` oneSecond
 
 -- | number of minutes given a duration in micro seconds
@@ -143,7 +146,7 @@ getSeconds n = n `div'` oneSecond
 -- 1
 -- >>> getMinutes 59
 -- 0
-getMinutes :: Micro -> Integer
+getMinutes :: Seconds -> Integer
 getMinutes n = n `div'` minute
 
 -- | number of hours given a duration in micro seconds
@@ -154,7 +157,7 @@ getMinutes n = n `div'` minute
 -- 1
 -- >>> getHours (2 * day)
 -- 48
-getHours :: Micro -> Integer
+getHours :: Seconds -> Integer
 getHours n = n `div'` hour
 
 -- | number of days given a duration in micro seconds
@@ -163,7 +166,7 @@ getHours n = n `div'` hour
 -- 10
 -- >>> getDays (240 * hour)
 -- 10
-getDays :: Micro -> Integer
+getDays :: Seconds -> Integer
 getDays n = n `div'` day
 
 -- | number of years given a duration in micro seconds
@@ -172,5 +175,5 @@ getDays n = n `div'` day
 -- 1
 -- >>> getYears (740 * day)
 -- 2
-getYears :: Micro -> Integer
+getYears :: Seconds -> Integer
 getYears n = n `div'` year
