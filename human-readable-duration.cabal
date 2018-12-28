@@ -1,5 +1,5 @@
 name:                human-readable-duration
-version:             0.2.1.0
+version:             0.2.1.1
 synopsis:            Provide duration helper
 homepage:            https://gitlab.esy.fun/yogsototh/human-readable-duration#readme
 license:             BSD3
@@ -52,4 +52,4 @@ benchmark hrd-bench
 
 source-repository head
   type:     git
-  location: https://github.com/yogstoth/human-readable-duration
+  location: https://gitlab.esy.fun/yogsototh/human-readable-duration
