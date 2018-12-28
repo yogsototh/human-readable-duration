@@ -16,6 +16,7 @@
 module Data.Duration
     ( humanReadableDuration
     , humanReadableDuration'
+    , approximativeDuration
     , Seconds
     -- durations
     , ms
@@ -33,7 +34,7 @@ module Data.Duration
     , getYears
     ) where
 
-import Data.Fixed (Fixed(..), Micro, div', mod')
+import           Data.Fixed (Fixed (..), Micro, div', mod')
 
 type Seconds = Micro
 
