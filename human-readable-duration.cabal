@@ -1,14 +1,13 @@
 name:                human-readable-duration
 version:             0.2.1.0
 synopsis:            Provide duration helper
-homepage:            http://github.com/yogsototh/human-readable-duration#readme
+homepage:            https://gitlab.esy.fun/yogsototh/human-readable-duration#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Yann Esposito
 maintainer:          yann.esposito@gmail.com
 category:            Time
 build-type:          Simple
--- extra-source-files:
 cabal-version:       >=1.10
 description:
     This is a minimal Haskell library to display duration.
