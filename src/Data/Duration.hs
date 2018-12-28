@@ -51,6 +51,39 @@ humanReadableDuration n
   | n < year   = let d  = getDays    n in if d  > 0 then show d  ++ " days " ++ humanReadableDuration (n `mod'` day) else ""
   | otherwise  = let y  = getYears   n in if y  > 0 then show y  ++ " years " ++ humanReadableDuration (n `mod'` year) else ""
 
+
+{- | `humanReadableDuration` take some time in micro-second precision and render a human readable duration.
+
+>>> let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day + 2*year
+>>> duration
+65923323.002000
+>>> approximativeDuration duration
+"2 years"
+>>> let duration = 2 * ms + 3 * oneSecond + 2 * minute + 33*day
+>>> approximativeDuration duration
+"33 days"
+>>> let duration = 2 * ms + 3 * oneSecond + 280 * minute
+>>> approximativeDuration duration
+"4 hours"
+>>> let duration = 2 * ms + 3 * oneSecond + 22 * minute
+>>> approximativeDuration duration
+"22 min"
+>>> let duration = 2 * ms + 3 * oneSecond
+>>> approximativeDuration duration
+"3s"
+>>> let duration = 12 * ms
+>>> approximativeDuration duration
+"12ms"
+-}
+approximativeDuration :: Micro -> String
+approximativeDuration n
+  | n < oneSecond = let mi = getMs   n in show mi ++ "ms"
+  | n < minute = let s  = getSeconds n in show s  ++ "s"
+  | n < hour   = let m  = getMinutes n in show m  ++ " min"
+  | n < day    = let h  = getHours   n in show h  ++ " hours"
+  | n < year   = let d  = getDays    n in show d  ++ " days"
+  | otherwise  = let y  = getYears   n in show y  ++ " years"
+
 -- | Wrapper around any `Real` input, which works for `DiffTime` and
 -- `NominalDiffTime` from the time library, or a `Double` of seconds.
 --

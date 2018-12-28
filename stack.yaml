@@ -2,7 +2,7 @@ flags: {}
 packages:
 - '.'
 extra-deps: []
-resolver: lts-5.15
+resolver: lts-13.0
 extra-lib-dirs:
   - /usr/lib
   - /usr/local/lib
