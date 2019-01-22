@@ -1,5 +1,5 @@
 name:                human-readable-duration
-version:             0.2.1.2
+version:             0.2.1.3
 synopsis:            Provide duration helper
 homepage:            https://gitlab.esy.fun/yogsototh/human-readable-duration#readme
 license:             BSD3
