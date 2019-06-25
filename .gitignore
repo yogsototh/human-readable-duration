@@ -7,3 +7,4 @@ dist
 .ghci
 .stack-work
 container/.DS_Store
+stack.yaml.lock
